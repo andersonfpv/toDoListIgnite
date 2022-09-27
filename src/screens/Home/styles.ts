@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     },
 
     img: {
-        width: 110,
+        width: 132,
         height: 32,
         marginTop: 24,
         marginBottom: 40,
@@ -29,7 +29,9 @@ export const styles = StyleSheet.create({
         height: 56,
         backgroundColor: '#1F1E25',
         borderRadius: 5,
-        color: '#FFF',
+        borderWidth: 1,
+        borderColor: '#5E60CE',
+        color: '#fff',
         padding: 16,
         fontSize: 16,
         marginRight: 4
@@ -54,14 +56,17 @@ export const styles = StyleSheet.create({
         height: 20,
         justifyContent: 'space-between',
         flexDirection: 'row',
+        marginBottom: 20
     },
 
     criadas: {
-        // backgroundColor: '#4EA8DE'
+        flexDirection: 'row', 
+        justifyContent: 'center'
     },
 
     concluidas: {
-        // backgroundColor: '#8284FA'
+        flexDirection: 'row', 
+        justifyContent: 'center'
     },
 
     textCriadas: {
@@ -76,7 +81,51 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-    empty: {
-        
-    }
+    containerListEmptyText: {
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexDirection: 'column',
+        marginTop: 48
+    },
+
+    listEmptyTitle: {
+        color: '#808080',
+        fontWeight: 'bold',
+        fontSize: 14,
+        textAlign: 'center',
+        marginTop: 16
+      },
+
+    listEmptySubtitle: {
+        color: '#808080',
+        fontSize: 14,
+        textAlign: 'center',
+
+    },
+
+    containerTextCounterCriadas: {
+        width: 25,
+        height: 19,
+        backgroundColor: '#333333',
+        alignItems: 'center',
+        marginLeft: 8,
+        borderRadius: 10
+    },
+
+    containerTextCounterConcluidas: {
+        width: 25,
+        height: 19,
+        backgroundColor: '#333333',
+        alignItems: 'center',
+        marginLeft: 8,
+        borderRadius: 10
+    },
+
+    textCounterCriadas: {
+        color: "#D9D9D9"
+    },
+
+    textCounterConcluidas: {
+        color: "#D9D9D9"
+    },
 })
