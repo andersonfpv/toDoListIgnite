@@ -8,6 +8,7 @@ export default function Home(){
 
     const [tasks, setTasks] = useState<string[]>([]);
     const [taskName, setTaskName] = useState('');
+    
 
     function handleTasksAdd(){
         if(tasks.includes(taskName)){
@@ -67,7 +68,7 @@ export default function Home(){
                 <View style={styles.criadas}>
                     <Text style={styles.textCriadas}>Criadas</Text>
                     <View style={styles.containerTextCounterCriadas}>
-                        <Text style={styles.textCounterCriadas}>0</Text>
+                        <Text style={styles.textCounterCriadas}>{tasks.length}</Text>
                     </View>
                 </View>
                 <View style={styles.concluidas}>
