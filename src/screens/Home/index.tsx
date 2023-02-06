@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, TextInput, View, TouchableOpacity, FlatList, Alert, Image  } from "react-native";
 import { ClipboardText } from 'phosphor-react-native';
-import { Task } from '../../components/Task';
+import { TaskListCheckbox } from '../../components/TaskListCheckbox';
 import { styles } from "./styles";
 
 export default function Home(){
@@ -23,7 +23,7 @@ export default function Home(){
     }
 
     function handleTaskRemove(name: string){
-        Alert.alert("Remover", `Remover o participante ${name}?`, [
+        Alert.alert("Remover", `Deseja remover ${name} da lista de tarefas?`, [
         {
             text: 'Sim',
             onPress: () => setTasks(prevState => prevState.filter(task => task !== name))
@@ -81,7 +81,7 @@ export default function Home(){
                 data={tasks}
                 keyExtractor={item => item}
                 renderItem={({ item }) => (
-                <Task 
+                <TaskListCheckbox 
                     key={item}
                     name={item} 
                     onRemove={() => handleTaskRemove(item)}
