@@ -1,39 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Text, TextInput, View, TouchableOpacity, FlatList, Alert, Image  } from "react-native";
 import { ClipboardText } from 'phosphor-react-native';
 import { TaskListCheckbox } from '../../components/TaskListCheckbox';
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 import { styles } from "./styles";
+
+export type Task = {
+    id: string;
+    content: string;
+    completed: boolean;
+}
 
 export default function Home(){
 
-    const [tasks, setTasks] = useState<string[]>([]);
+    const [tasks, setTasks] = useState<Task[]>([]);
     const [taskName, setTaskName] = useState('');
+
+    const countCompletedTasks = useMemo(() => {
+        return tasks.filter(task => !!task.completed).length
+    }, [tasks]);
     
 
     function handleTasksAdd(){
-        if(tasks.includes(taskName)){
-        return Alert.alert("Tarefa já existe", "Já existe uma tarefa na lista com esse nome" );
+        if (tasks.find(task => task.content === taskName)) {
+            return Alert.alert("Tarefa já existe", "Já existe uma tarefa na lista com esse nome");
         }
 
         if(taskName.split(' ').join('') === '') {
         return Alert.alert("Campo vazio", "Esse campo não pode estar vazio." );
         }
 
-        setTasks(prevState => [...prevState, taskName]);
+        const task: Task = {
+            id: uuidv4(),
+            content: taskName,
+            completed: false
+        }
+
+        setTasks(prevState => [...prevState, task]);
         setTaskName('');
     }
 
-    function handleTaskRemove(name: string){
-        Alert.alert("Remover", `Deseja remover ${name} da lista de tarefas?`, [
-        {
-            text: 'Sim',
-            onPress: () => setTasks(prevState => prevState.filter(task => task !== name))
-        },
-        {
-            text: 'Não',
-            style: 'cancel'
-        }
+    function handleTaskRemove(task: Task){
+        Alert.alert("Remover", `Deseja remover ${task.content} da lista de tarefas?`, [
+            {
+                text: 'Sim',
+                onPress: () => setTasks(prevState => prevState.filter(t => t.id !== task.id))
+            },
+            {
+                text: 'Não',
+                style: 'cancel'
+            }
         ]);
+    }
+
+    function handleCompleteTask(task: Task){
+        const findIndex = tasks.findIndex(t => t.id === task.id);
+
+        const tasksList = [...tasks];
+
+        tasksList[findIndex] = {
+            ...tasksList[findIndex],
+            completed: !tasksList[findIndex].completed,
+        }
+
+        setTasks(tasksList)
     }
 
     return(
@@ -74,19 +105,20 @@ export default function Home(){
                 <View style={styles.concluidas}>
                     <Text style={styles.textConcluidas}>Concluídas</Text>
                     <View style={styles.containerTextCounterConcluidas}>
-                        <Text style={styles.textCounterConcluidas}>0</Text>
+                        <Text style={styles.textCounterConcluidas}>{countCompletedTasks}</Text>
                     </View>
                 </View>
             </View>
             <FlatList 
                 data={tasks}
-                keyExtractor={item => item}
+                keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                <TaskListCheckbox 
-                    key={item}
-                    name={item} 
-                    onRemove={() => handleTaskRemove(item)}
-                />
+                    <TaskListCheckbox
+                      key={item.id}
+                      data={item} 
+                      onRemove={() => handleTaskRemove(item)}
+                      onComplete={() => handleCompleteTask(item)}
+                    />
                 )}
                 showsVerticalScrollIndicator={false}
                 ListEmptyComponent={() => (
