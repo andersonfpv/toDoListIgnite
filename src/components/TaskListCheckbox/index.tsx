@@ -23,7 +23,9 @@ export function TaskListCheckbox({ data, onRemove, onComplete }: TaskProps) {
             <Checkbox
                 status={completed ? 'checked' : 'unchecked'}
                 onPress={onComplete}
-
+                color="#5E60CE"
+                uncheckedColor="#4EA8DE"
+                
             />
             {
                 completed ? 'checked' && (
