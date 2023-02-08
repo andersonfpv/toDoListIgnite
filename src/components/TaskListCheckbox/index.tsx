@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/Ionicons';

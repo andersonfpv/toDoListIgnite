@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     },
 
     img: {
-        width: 134,
+        width: 115,
         height: 32,
         marginTop: 24,
         marginBottom: 40,
